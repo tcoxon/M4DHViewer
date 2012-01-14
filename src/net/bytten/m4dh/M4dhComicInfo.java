@@ -1,9 +1,9 @@
-package net.bytten.xkcdviewer;
+package net.bytten.m4dh;
 
 import net.bytten.comicviewer.IComicInfo;
 import android.net.Uri;
 
-public class XkcdComicInfo implements IComicInfo {
+public class M4dhComicInfo implements IComicInfo {
 
     public Uri img;
     public int num;

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="app_name">xkcdViewer</string>
-<string name="app_archive_label">xkcd Archive - xkcdViewer</string>
-<string name="app_bookmarks_label">Favorites - xkcdViewer</string>
-<string name="app_search_title_label">Search by Title - xkcdViewer</string>
-<string name="app_prefs_label">Preferences - xkcdViewer</string>
+<string name="app_name">Milk for Dead Hamsters</string>
+<string name="app_archive_label">Archive - Milk for Dead Hamsters</string>
+<string name="app_bookmarks_label">Favorites - Milk for Dead Hamsters</string>
+<string name="app_search_title_label">Search by Title - Milk for Dead Hamsters</string>
+<string name="app_prefs_label">Preferences - Milk for Dead Hamsters</string>
 <string name="aboutText">
-    xkcdViewer v%s. Application for viewing xkcd comics with hover text.\n\n
-    xkcdViewer Copyright (C) 2009-2011, Tom Coxon, Tyler Breisacher, David
+    Milk for Dead Hamsters v%s. Application for viewing Milk for Dead Hamsters comics with hover text.\n\n
+    Code copyright (C) 2009-2012, Tom Coxon, Tyler Breisacher, David
     McCullough, Kristian Lundkvist.\n\n
-    xkcd is Copyright (C) 2006 - 2011, Randall Munroe (http://xkcd.com)\n\n
+    Comics Copyright (C) Patrick Mallon (http://milkfordeadhamsters.com)\n\n
     Contains some menu icons from www.androidicons.com, licensed under a
     Creative Commons Attribution - Share Alike license.\n\n
-    Application icon kindly donated by Johan Larsson.\n\n
     See the github page for this project for more information:\n
-    \thttp://github.com/tcoxon/XkcdViewer/\n\n
+    \thttp://github.com/tcoxon/M4DHViewer/\n\n
     This program is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
     more details.\n\n
-    If you like this app, please consider donating. Thanks.
+    If you like the comics, please consider supporting the artist by visiting his store.\n\n
+    If you like this app, please consider donating. Thanks.\n\n
 </string>
 </resources>

@@ -1,4 +1,4 @@
-package net.bytten.xkcdviewer;
+package net.bytten.m4dh;
 
 import java.util.regex.Pattern;
 
@@ -7,7 +7,7 @@ import net.bytten.comicviewer.IComicProvider;
 
 import android.net.Uri;
 
-public class XkcdComicDefinition implements IComicDefinition {
+public class M4dhComicDefinition implements IComicDefinition {
 
     static public final Pattern
         xkcdHomePattern = Pattern.compile(
@@ -17,10 +17,10 @@ public class XkcdComicDefinition implements IComicDefinition {
         archiveUrlPattern = Pattern.compile(
             "http://(www\\.)?xkcd\\.com/archive(/)?");
 
-    private XkcdComicProvider provider;
+    private M4dhComicProvider provider;
     
-    public XkcdComicDefinition() {
-        provider = new XkcdComicProvider(this);
+    public M4dhComicDefinition() {
+        provider = new M4dhComicProvider(this);
     }
     
     @Override
@@ -30,32 +30,32 @@ public class XkcdComicDefinition implements IComicDefinition {
 
     @Override
     public String getAuthorLinkText() {
-        return "xkcd Store";
+        return "M4DH Store";
     }
 
     @Override
     public Uri getAuthorLinkUrl() {
-        return Uri.parse("http://store.xkcd.com/");
+        return Uri.parse("http://milkfordeadhamsters.com/store");
     }
 
     @Override
     public String getAuthorName() {
-        return "Randall Munroe";
+        return "Patrick Mallon";
     }
 
     @Override
     public String getComicTitle() {
-        return "xkcd";
+        return "Milk for Dead Hamsters";
     }
 
     @Override
     public String getComicTitleAbbrev() {
-        return "xkcd";
+        return "m4dh";
     }
 
     @Override
     public String getPackageName() {
-        return "net.bytten.xkcdviewer";
+        return "net.bytten.m4dh";
     }
 
     @Override
@@ -90,7 +90,7 @@ public class XkcdComicDefinition implements IComicDefinition {
 
     @Override
     public Uri getDonateUrl() {
-        return Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=C9JRVA3NTULSL&lc=US&item_name=XkcdViewer%20donation&item_number=xkcdviewer&currency_code=USD");
+        return Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=C9JRVA3NTULSL&lc=US&item_name=Milk%20for%20Dead%20Hamsters%20donation&item_number=milk%20for%20dead%20hamsters&currency_code=USD");
     }
 
 }

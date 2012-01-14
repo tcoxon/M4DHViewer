@@ -1,9 +1,9 @@
 /*
- *  xkcdViewer - Android app to view xkcd comics with hover text
- *  Copyright (C) 2009-2010 Tom Coxon, Tyler Breisacher, David McCullough,
+ *  Milk for Dead Hamsters - Android app to view M4DH comics with hover text
+ *  Copyright (C) 2009-2012 Tom Coxon, Tyler Breisacher, David McCullough,
  *      Kristian Lundkvist.
  *  
- *  xkcd is Copyright (C) Randall Munroe.
+ *  M4DH is Copyright (C) Patrick Mallon.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,22 +19,22 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-package net.bytten.xkcdviewer;
+package net.bytten.m4dh;
 
 import net.bytten.comicviewer.ArchiveActivity;
 import net.bytten.comicviewer.ComicViewerActivity;
 import net.bytten.comicviewer.IComicDefinition;
 
-public class XkcdViewerActivity extends ComicViewerActivity {
+public class M4dhViewerActivity extends ComicViewerActivity {
 
     @Override
     protected IComicDefinition makeComicDef() {
-        return new XkcdComicDefinition();
+        return new M4dhComicDefinition();
     }
 
     @Override
     protected Class<? extends ArchiveActivity> getArchiveActivityClass() {
-        return XkcdArchiveActivity.class;
+        return M4dhArchiveActivity.class;
     }
 
     @Override

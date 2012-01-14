@@ -1,13 +1,13 @@
-package net.bytten.xkcdviewer;
+package net.bytten.m4dh;
 
 import net.bytten.comicviewer.ArchiveActivity;
 import net.bytten.comicviewer.IComicDefinition;
 
-public class XkcdArchiveActivity extends ArchiveActivity {
+public class M4dhArchiveActivity extends ArchiveActivity {
 
     @Override
     protected IComicDefinition makeComicDef() {
-        return new XkcdComicDefinition();
+        return new M4dhComicDefinition();
     }
 
     @Override

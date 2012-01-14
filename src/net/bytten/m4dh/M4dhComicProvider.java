@@ -1,4 +1,4 @@
-package net.bytten.xkcdviewer;
+package net.bytten.m4dh;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -19,22 +19,22 @@ import org.json.JSONTokener;
 
 import android.net.Uri;
 
-public class XkcdComicProvider implements IComicProvider {
+public class M4dhComicProvider implements IComicProvider {
 
     private static final Pattern archiveItemPattern = Pattern.compile(
             // group(1): comic number;   group(2): date;   group(3): title
             "\\s*<a href=\"/(\\d+)/\" title=\"(\\d+-\\d+-\\d+)\">([^<]+)</a><br/>\\s*");
     private static final String ARCHIVE_URL = "http://www.xkcd.com/archive/";
     
-    private XkcdComicDefinition def;
+    private M4dhComicDefinition def;
     
-    public XkcdComicProvider(XkcdComicDefinition def) {
+    public M4dhComicProvider(M4dhComicDefinition def) {
         this.def = def;
     }
     
     @Override
     public Uri comicDataUrlForUrl(Uri url) {
-        Matcher m = XkcdComicDefinition.comicUrlPattern
+        Matcher m = M4dhComicDefinition.comicUrlPattern
             .matcher(url.toString());
         if (m.matches())
             return createComicUrl(m.group(2));
@@ -52,7 +52,7 @@ public class XkcdComicProvider implements IComicProvider {
         //      (http://xkcd.com/json.html) 
         String text = Utility.blockingReadUri(url);
         JSONObject obj = (JSONObject)new JSONTokener(text).nextValue();
-        XkcdComicInfo data = new XkcdComicInfo();
+        M4dhComicInfo data = new M4dhComicInfo();
         data.img = Uri.parse(obj.getString("img"));
         data.alt = obj.getString("alt");
         data.num = obj.getInt("num");
@@ -85,7 +85,7 @@ public class XkcdComicProvider implements IComicProvider {
 
     @Override
     public IComicInfo createEmptyComicInfo() {
-        return new XkcdComicInfo();
+        return new M4dhComicInfo();
     }
 
     @Override
