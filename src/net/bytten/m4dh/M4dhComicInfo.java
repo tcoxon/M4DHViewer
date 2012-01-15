@@ -6,7 +6,7 @@ import android.net.Uri;
 public class M4dhComicInfo implements IComicInfo {
 
     public Uri img;
-    public int num;
+    public String id, nextId, prevId;
     public String title = "", alt = "";
     public boolean bookmarked;
 
@@ -17,7 +17,7 @@ public class M4dhComicInfo implements IComicInfo {
 
     @Override
     public String getId() {
-        return Integer.toString(num);
+        return id;
     }
 
     @Override
@@ -27,18 +27,14 @@ public class M4dhComicInfo implements IComicInfo {
 
     @Override
     public String getNextId() {
-        int n = num + 1;
-        // #404 is xkcd's error page!
-        if (n == 404) ++n;
-        return Integer.toString(n);
+        if (nextId != null) return nextId;
+        return id;
     }
 
     @Override
     public String getPrevId() {
-        int n = num - 1;
-        // #404 is xkcd's error page!
-        if (n == 404) --n;
-        return Integer.toString(n);
+        if (prevId != null) return prevId;
+        return id;
     }
 
     @Override
@@ -48,7 +44,7 @@ public class M4dhComicInfo implements IComicInfo {
 
     @Override
     public String getUrl() {
-        return "http://xkcd.com/"+getId()+"/";
+        return "http://milkfordeadhamsters.com/comics/"+getId();
     }
 
     @Override

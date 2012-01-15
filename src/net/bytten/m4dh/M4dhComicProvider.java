@@ -2,7 +2,6 @@ package net.bytten.m4dh;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,17 +13,15 @@ import net.bytten.comicviewer.IComicProvider;
 import net.bytten.comicviewer.Utility;
 import net.bytten.comicviewer.ArchiveData.ArchiveItem;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
 import android.net.Uri;
+import android.text.Html;
 
 public class M4dhComicProvider implements IComicProvider {
 
     private static final Pattern archiveItemPattern = Pattern.compile(
-            // group(1): comic number;   group(2): date;   group(3): title
+            // TODO group(1): comic number;   group(2): date;   group(3): title
             "\\s*<a href=\"/(\\d+)/\" title=\"(\\d+-\\d+-\\d+)\">([^<]+)</a><br/>\\s*");
-    private static final String ARCHIVE_URL = "http://www.xkcd.com/archive/";
+    private static final String ARCHIVE_URL = "http://milkfordeadhamsters.com/master-list";
     
     private M4dhComicDefinition def;
     
@@ -43,44 +40,96 @@ public class M4dhComicProvider implements IComicProvider {
 
     @Override
     public Uri createComicUrl(String comicId) {
-        return Uri.parse("http://xkcd.com/"+comicId+"/info.0.json");
+        return Uri.parse("http://milkfordeadhamsters.com/comics/"+comicId);
     }
 
+    private static final Pattern
+        titlePattern = Pattern.compile("<title>([^<]+)</title>"),
+        prevPattern = Pattern.compile("<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\"\\s+rel=\"prev\">"),
+        nextPattern = Pattern.compile("<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\"\\s+rel=\"next\">"),
+        imageTagPattern = Pattern.compile("<div class=\"entry\">\\s+<p[^>]*>\\s*(<a href=\"http://milkfordeadhamsters.com/comics/([^\"/]+)(/([^\"]*))?\"[^>]*>\\s*)?<img([^>]+)/>"),
+        imagePattern = Pattern.compile("src=\"(http://milkfordeadhamsters.com/wp-content/uploads/[^\"]+)\""),
+        altPattern = Pattern.compile("title=\"([^\"]+)\""),
+        backupIdPattern = Pattern.compile("<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\"\\s+(title=\"[^\"]*\"\\s+)?rel=\"bookmark\"");
+    
     @Override
     public IComicInfo fetchComicInfo(Uri url) throws Exception {
-        // Uses xkcd's JSON interface
-        //      (http://xkcd.com/json.html) 
-        String text = Utility.blockingReadUri(url);
-        JSONObject obj = (JSONObject)new JSONTokener(text).nextValue();
+        String content = Utility.blockingReadUri(url);
+        
+        String img = "", alt = "", id = "", title = "",
+            nextId = null, prevId = null;
+        
+        Matcher m = imageTagPattern.matcher(content);
+        if (m.find()) {
+            if (m.group(1) != null)
+                id = m.group(2);
+            String imgTag = m.group(5);
+            m = imagePattern.matcher(imgTag);
+            if (m.find()) {
+                img = m.group(1);
+            }
+            m = altPattern.matcher(imgTag);
+            if (m.find()) {
+                alt = m.group(1);
+            }
+        }
+        
+        if ("".equals(id)) {
+            m = backupIdPattern.matcher(content);
+            if (m.find()) {
+                id = m.group(1);
+            }
+        }
+        
+        m = titlePattern.matcher(content);
+        if (m.find()) {
+            title = m.group(1);
+            String commonPart = " - Milk for Dead Hamsters";
+            int pos = title.lastIndexOf(commonPart);
+            if (pos != -1 && pos+commonPart.length() == title.length()) {
+                title = title.substring(0, pos);
+            }
+            commonPart = "m4dh: ";
+            pos = title.indexOf(commonPart);
+            if (pos == 0)
+                title = title.substring(commonPart.length());
+        }
+        
+        m = prevPattern.matcher(content);
+        if (m.find()) {
+            prevId = m.group(1);
+        }
+        
+        m = nextPattern.matcher(content);
+        if (m.find()) {
+            nextId = m.group(1);
+        }
+        
         M4dhComicInfo data = new M4dhComicInfo();
-        data.img = Uri.parse(obj.getString("img"));
-        data.alt = obj.getString("alt");
-        data.num = obj.getInt("num");
-        data.title = obj.getString("title");
+        data.img = Uri.parse(Html.fromHtml(img).toString());
+        data.id = Html.fromHtml(id).toString();
+        data.alt = Html.fromHtml(alt).toString();
+        data.title = Html.fromHtml(title).toString();
+        if (nextId != null)
+            data.nextId = Html.fromHtml(nextId).toString();
+        if (prevId != null)
+            data.prevId = Html.fromHtml(prevId).toString();
         return data;
     }
 
     @Override
     public Uri fetchRandomComicUrl() throws Exception {
-        HttpURLConnection http = (HttpURLConnection) new URL("http",
-                "dynamic.xkcd.com", "/random/comic").openConnection();
-        String redirect = http.getHeaderField("Location");
-        Uri loc = Uri.parse(redirect);
-        if (def.isComicUrl(loc)) {
-            return comicDataUrlForUrl(loc);
-        } else {
-            return null;
-        }
+        return Uri.parse("http://milkfordeadhamsters.com/?random&random_cat_id=5");
     }
 
     @Override
     public Uri getFinalComicUrl() {
-        return Uri.parse("http://xkcd.com/info.0.json");
+        return Uri.parse("http://milkfordeadhamsters.com/");
     }
 
     @Override
     public String getFirstId() {
-        return "1";
+        return "pet-fish";
     }
 
     @Override
@@ -90,6 +139,7 @@ public class M4dhComicProvider implements IComicProvider {
 
     @Override
     public List<ArchiveItem> fetchArchive() throws Exception {
+        // TODO
         List<ArchiveItem> archiveItems = new ArrayList<ArchiveItem>();
         URL url = new URL(ARCHIVE_URL);
         BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));

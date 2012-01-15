@@ -10,12 +10,12 @@ import android.net.Uri;
 public class M4dhComicDefinition implements IComicDefinition {
 
     static public final Pattern
-        xkcdHomePattern = Pattern.compile(
-            "http://(www\\.)?xkcd\\.com(/)?"),
+        homePattern = Pattern.compile(
+            "http://(www\\.)?milkfordeadhamsters\\.com(/)?"),
         comicUrlPattern = Pattern.compile(
-            "http://(www\\.)?xkcd\\.com/([0-9]+)(/)?"),
+            "http://(www\\.)?milkfordeadhamsters\\.com/comics/([^/?#]+)(/)?"),
         archiveUrlPattern = Pattern.compile(
-            "http://(www\\.)?xkcd\\.com/archive(/)?");
+            "http://(www\\.)?milkfordeadhamsters\\.com/master-list(/)?");
 
     private M4dhComicProvider provider;
     
@@ -25,7 +25,7 @@ public class M4dhComicDefinition implements IComicDefinition {
     
     @Override
     public Uri getArchiveUrl() {
-        return Uri.parse("http://xkcd.com/archive/");
+        return Uri.parse("http://milkfordeadhamsters.com/master-list");
     }
 
     @Override
@@ -65,7 +65,7 @@ public class M4dhComicDefinition implements IComicDefinition {
 
     @Override
     public boolean idsAreNumbers() {
-        return true;
+        return false;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class M4dhComicDefinition implements IComicDefinition {
 
     @Override
     public boolean isHomeUrl(Uri url) {
-        return xkcdHomePattern.matcher(url.toString()).matches();
+        return homePattern.matcher(url.toString()).matches();
     }
 
     @Override
