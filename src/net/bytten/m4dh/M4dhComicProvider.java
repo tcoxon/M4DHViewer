@@ -19,8 +19,8 @@ import android.text.Html;
 public class M4dhComicProvider implements IComicProvider {
 
     private static final Pattern archiveItemPattern = Pattern.compile(
-            // TODO group(1): comic number;   group(2): date;   group(3): title
-            "\\s*<a href=\"/(\\d+)/\" title=\"(\\d+-\\d+-\\d+)\">([^<]+)</a><br/>\\s*");
+            // group(1): comic id;      group(2): title
+            "<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\" rel=\"bookmark\">([^<]+)</a>");
     private static final String ARCHIVE_URL = "http://milkfordeadhamsters.com/master-list";
     
     private M4dhComicDefinition def;
@@ -54,6 +54,7 @@ public class M4dhComicProvider implements IComicProvider {
     
     @Override
     public IComicInfo fetchComicInfo(Uri url) throws Exception {
+        System.out.println("fetching "+url.toString());
         String content = Utility.blockingReadUri(url);
         
         String img = "", alt = "", id = "", title = "",
@@ -150,8 +151,8 @@ public class M4dhComicProvider implements IComicProvider {
                 Matcher m = archiveItemPattern.matcher(line);
                 while (m.find()) {
                     ArchiveItem item = new ArchiveItem();
-                    item.comicId = m.group(1);
-                    item.title = m.group(3);
+                    item.comicId = Html.fromHtml(m.group(1)).toString();
+                    item.title = Html.fromHtml(m.group(2)).toString();
                     archiveItems.add(item);
                 }
 
