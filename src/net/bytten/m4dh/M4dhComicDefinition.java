@@ -20,7 +20,7 @@ public class M4dhComicDefinition implements IComicDefinition {
     private M4dhComicProvider provider;
     
     public M4dhComicDefinition() {
-        provider = new M4dhComicProvider(this);
+        provider = new M4dhComicProvider();
     }
     
     @Override

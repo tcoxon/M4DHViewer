@@ -23,12 +23,6 @@ public class M4dhComicProvider implements IComicProvider {
             "<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\" rel=\"bookmark\">([^<]+)</a>");
     private static final String ARCHIVE_URL = "http://milkfordeadhamsters.com/master-list";
     
-    private M4dhComicDefinition def;
-    
-    public M4dhComicProvider(M4dhComicDefinition def) {
-        this.def = def;
-    }
-    
     @Override
     public Uri comicDataUrlForUrl(Uri url) {
         Matcher m = M4dhComicDefinition.comicUrlPattern
@@ -48,7 +42,7 @@ public class M4dhComicProvider implements IComicProvider {
         prevPattern = Pattern.compile("<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\"\\s+rel=\"prev\">"),
         nextPattern = Pattern.compile("<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\"\\s+rel=\"next\">"),
         imageTagPattern = Pattern.compile("<div class=\"entry\">\\s+<p[^>]*>\\s*(<a href=\"http://milkfordeadhamsters.com/comics/([^\"/]+)(/([^\"]*))?\"[^>]*>\\s*)?<img([^>]+)/>"),
-        imagePattern = Pattern.compile("src=\"(http://milkfordeadhamsters.com/wp-content/uploads/[^\"]+)\""),
+        imagePattern = Pattern.compile("src=\"(http://(milkfordeadhamsters.com|torchspark.com/comic2)/wp-content/uploads/[^\"]+)\""),
         altPattern = Pattern.compile("title=\"([^\"]+)\""),
         backupIdPattern = Pattern.compile("<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\"\\s+(title=\"[^\"]*\"\\s+)?rel=\"bookmark\"");
     
