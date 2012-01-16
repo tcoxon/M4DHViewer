@@ -41,7 +41,7 @@ public class M4dhComicProvider implements IComicProvider {
         titlePattern = Pattern.compile("<title>([^<]+)</title>"),
         prevPattern = Pattern.compile("<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\"\\s+rel=\"prev\">"),
         nextPattern = Pattern.compile("<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\"\\s+rel=\"next\">"),
-        imageTagPattern = Pattern.compile("<div class=\"entry\">\\s+<p[^>]*>\\s*(<a href=\"http://milkfordeadhamsters.com/comics/([^\"/]+)(/([^\"]*))?\"[^>]*>\\s*)?<img([^>]+)/>"),
+        imageTagPattern = Pattern.compile("<div class=\"entry\">\\s*<p[^>]*>\\s*(<a href=\"http://milkfordeadhamsters.com/comics/([^\"/]+)(/([^\"]*))?\"[^>]*>\\s*)?<img([^>]+)/>"),
         imagePattern = Pattern.compile("src=\"(http://(milkfordeadhamsters.com|torchspark.com/comic2)/wp-content/uploads/[^\"]+)\""),
         altPattern = Pattern.compile("title=\"([^\"]+)\""),
         backupIdPattern = Pattern.compile("<a href=\"http://milkfordeadhamsters.com/comics/([^\"]+)\"\\s+(title=\"[^\"]*\"\\s+)?rel=\"bookmark\"");
