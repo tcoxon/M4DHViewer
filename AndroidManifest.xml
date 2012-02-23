@@ -24,8 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http" android:host="xkcd.com" />
-                <data android:scheme="http" android:host="www.xkcd.com" />
+                <data android:scheme="http" android:host="milkfordeadhamsters.com" />
+                <data android:scheme="http" android:host="www.milkfordeadhamsters.com" />
+                <data android:scheme="http" android:host="m4dh.com" />
+                <data android:scheme="http" android:host="www.m4dh.com" />
             </intent-filter>
         </activity>
         <activity android:label="@string/app_archive_label"
